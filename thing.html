@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chrome Native HTML Editor</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: monospace; display: flex; height: 100vh; background: #111; color: #fff; }
+        .box { width: 50%; height: 100vh; display: flex; flex-direction: column; }
+        textarea { flex: 1; width: 100%; padding: 20px; background: #1e1e1e; color: #00ff00; border: none; font-size: 16px; outline: none; resize: none; }
+        iframe { flex: 1; width: 100%; background: #ffffff; border: none; }
+    </style>
+</head>
+<body>
+
+    <!-- LEFT SIDE: WRITE RAW CODE HERE -->
+    <div class="box">
+        <textarea id="editor" spellcheck="false" placeholder="Type basic HTML here..."><!-- Write your HTML page layout below -->
+<h1 style="color: blue; text-align: center;">Hello World</h1>
+<p style="font-family: sans-serif;">This code displays right away.</p>
+</textarea>
+    </div>
+
+    <!-- RIGHT SIDE: DISPLAYS THE HTML -->
+    <div class="box">
+        <iframe id="viewer"></iframe>
+    </div>
+
+    <script>
+        const editor = document.getElementById('editor');
+        const viewer = document.getElementById('viewer');
+
+        function render() {
+            const doc = viewer.contentDocument || viewer.contentWindow.document;
+            doc.open();
+            doc.write(editor.value);
+            doc.close();
+        }
+
+        editor.addEventListener('input', render);
+        window.onload = render;
+    </script>
+</body>
+</html>
